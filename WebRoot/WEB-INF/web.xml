@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <context-param>
+    <param-name>drv</param-name>
+    <param-value>com.mysql.cj.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+    <param-name>url</param-name>
+    <param-value>jdbc:mysql://localhost:3306/vote?useSSL=false&amp;serverTimezone=Hongkong</param-value>
+  </context-param>
+  <context-param>
+    <param-name>usr</param-name>
+    <param-value>root</param-value>
+  </context-param>
+  <context-param>
+    <param-name>pwd</param-name>
+    <param-value>123456</param-value>
+  </context-param>
+  <servlet>
+    <description>用户管理</description>
+    <servlet-name>userservlet</servlet-name>
+    <servlet-class>servlet.userservlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>userservlet</servlet-name>
+    <url-pattern>/servlet/userservlet</url-pattern>
+  </servlet-mapping> 
+
+    
+  <welcome-file-list>
+    <welcome-file>/index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <session-config>
+	<session-timeout>100</session-timeout>
+ </session-config>
+    <filter-mapping>
+        <filter-name>CharEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>InitServlet</servlet-name>
+        <servlet-class>servlet.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InitServlet</servlet-name>
+        <url-pattern>/servlet/InitServlet</url-pattern>
+    </servlet-mapping>
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/myTagLib</taglib-uri>
+            <taglib-location>/WEB-INF/myTagLib.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+    <filter>
+        <filter-name>CharEncodingFilter</filter-name>
+        <filter-class>filter.CharEncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HeadFilter</filter-name>
+        <url-pattern>/login.jsp</url-pattern>
+        <url-pattern>/register.jsp</url-pattern>
+        <url-pattern>/index2.jsp</url-pattern>
+        <url-pattern>/manageMain.jsp</url-pattern>
+        <url-pattern>/vote/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    <filter>
+        <filter-name>HeadFilter</filter-name>
+        <filter-class>filter.HeadFilter</filter-class>
+    </filter>
+    <servlet>
+        <servlet-name>voteservlet</servlet-name>
+        <servlet-class>servlet.voteservlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>voteservlet</servlet-name>
+        <url-pattern>/servlet/voteservlet</url-pattern>
+    </servlet-mapping>
+</web-app>
